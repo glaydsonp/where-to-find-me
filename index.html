@@ -178,6 +178,7 @@ pre.code a:hover{text-decoration:underline;color:var(--string)}
 .lang button[aria-pressed="true"]{background:var(--accent);color:#fff}
 @media (max-width:720px){.header-right{gap:4px}}
 </style>
+<script defer src="https://umami.glaydsonp.com/script.js" data-website-id="c2598392-8190-4829-aa9d-4aaaee1693b0" data-domains="glaydsonp.com"></script>
 </head>
 <body>
 <a class="skip" href="#conteudo" data-i18n="skip">Pular para o conteúdo</a>
@@ -501,6 +502,63 @@ var I18N = {
     b.addEventListener('click', function (e) { e.preventDefault(); });
   });
   document.getElementById('ano').textContent = new Date().getFullYear();
+})();
+</script>
+<script>
+/* analytics (Umami): eventos por delegação; silencioso se o script for bloqueado */
+(function () {
+  function track(name, data) {
+    try { if (window.umami && typeof window.umami.track === 'function') window.umami.track(name, data); } catch (e) {}
+  }
+
+  function secaoDe(el) {
+    var s = el.closest('section[id], header, footer');
+    if (!s) return '';
+    var h = s.querySelector('h1, h2, h3');
+    return (h && h.textContent.trim()) || s.id || s.tagName.toLowerCase();
+  }
+
+  document.addEventListener('click', function (e) {
+    try {
+      var el = e.target.closest && e.target.closest('a, button');
+      if (!el) return;
+      var href = el.getAttribute('href') || '';
+      var externo = false;
+      if (el.tagName === 'A' && href) {
+        try { externo = new URL(el.href, location.href).origin !== location.origin; } catch (err) {}
+      }
+      track('click', {
+        texto: (el.textContent || el.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' ').slice(0, 100),
+        href: href,
+        externo: externo,
+        secao: secaoDe(el)
+      });
+      var m = /^(mailto|tel):(.*)$/i.exec(href);
+      if (m) track('contact-click', { tipo: m[1].toLowerCase(), valor: decodeURIComponent(m[2]).split('?')[0] });
+    } catch (err) {}
+  }, true);
+
+  var marcos = [25, 50, 75, 100], feitos = {};
+  function onScroll() {
+    try {
+      var d = document.documentElement;
+      var total = d.scrollHeight - window.innerHeight;
+      var pct = total > 0 ? (window.scrollY / total) * 100 : 100;
+      marcos.forEach(function (m) {
+        if (pct >= m && !feitos[m]) { feitos[m] = true; track('scroll-depth', { percent: m }); }
+      });
+    } catch (err) {}
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  var inicio = Date.now(), enviado = false;
+  function saida() {
+    if (enviado) return;
+    enviado = true;
+    track('time-on-page', { segundos: Math.round((Date.now() - inicio) / 1000) });
+  }
+  window.addEventListener('pagehide', saida);
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') saida(); });
 })();
 </script>
 </body>
