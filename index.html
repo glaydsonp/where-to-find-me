@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glaydson Prado — Tech Lead &amp; Full-Stack Developer</title>
+<meta name="description" content="Glaydson Prado — Tech Lead & Full-Stack Developer. Mobile, backend e infraestrutura em nuvem.">
+<meta name="theme-color" content="#181818">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Glaydson Prado — Tech Lead & Full-Stack Developer">
+<meta property="og:description" content="Mobile, backend e infraestrutura em nuvem.">
+<meta property="og:url" content="https://glaydsonp.com">
+<link rel="canonical" href="https://glaydsonp.com/">
+<link rel="alternate" hreflang="pt-BR" href="https://glaydsonp.com/?lang=pt">
+<link rel="alternate" hreflang="en" href="https://glaydsonp.com/?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://glaydsonp.com/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231F1F1F'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='16' font-weight='700' text-anchor='middle' fill='%234EC9B0'%3Egp%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#1F1F1F; --bg-2:#181818; --border:#2B2B2B; --border-2:#3C3C3C;
+  --text:#CCCCCC; --text-strong:#FFFFFF; --muted:#9DA5B4; --gutter:#6E7681;
+  --accent:#0078D4; --accent-hover:#026EC1; --select:#04395E;
+  --comment:#7FB069; --keyword:#569CD6; --variable:#9CDCFE; --string:#CE9178;
+  --type:#4EC9B0; --func:#DCDCAA; --brace:#FFD700; --folder:#DCB67A;
+  --mono:'JetBrains Mono',ui-monospace,Consolas,'Courier New',monospace;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --wrap:1120px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:104px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.cursor{animation:none!important}}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--variable)}a:hover{color:var(--text-strong)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mono{font-family:var(--mono)}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--accent);color:#fff;padding:8px 12px;z-index:100}
+.skip:focus{left:8px}
+
+/* ---------- topo ---------- */
+.top{position:sticky;top:0;z-index:20;background:var(--bg-2)}
+.header{border-bottom:1px solid var(--border)}
+.header .wrap{min-height:56px;display:flex;align-items:center;justify-content:space-between;gap:12px 32px}
+.logo{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--text-strong);text-decoration:none;padding:12px 0}
+.logo span{color:var(--type)}
+.nav{display:flex;flex-wrap:wrap;gap:4px 24px;font-family:var(--mono);font-size:14px}
+.nav a{color:var(--text);text-decoration:none;padding:8px 0}
+.nav a:hover,.nav a[aria-current="true"]{color:var(--text-strong)}
+.menu-btn{display:none;width:48px;height:48px;margin-right:-12px;background:transparent;border:0;color:var(--text);cursor:pointer;align-items:center;justify-content:center;border-radius:4px}
+.menu-btn:hover{background:#2A2D2E}
+.tabs{border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs .wrap{display:flex;font-family:var(--mono);font-size:13px}
+.tab{color:var(--muted);padding:10px 16px;display:flex;gap:8px;white-space:nowrap;text-decoration:none;border-top:2px solid transparent}
+.tab:hover{color:var(--text-strong)}
+.tab.active{background:var(--bg);border-top-color:var(--accent);color:var(--text-strong)}
+.ico{font-weight:700}
+.ico.ts{color:var(--type)}.ico.json{color:var(--func)}.ico.md{color:var(--keyword)}
+
+/* ---------- menu mobile (explorer) ---------- */
+.explorer{position:fixed;inset:0;z-index:50;background:var(--bg-2);display:flex;flex-direction:column;font-family:var(--mono)}
+.explorer[hidden]{display:none}
+.explorer-head{height:56px;border-bottom:1px solid var(--border);padding:0 8px 0 20px;display:flex;align-items:center;justify-content:space-between}
+.explorer nav{flex:1;padding:24px 0;overflow-y:auto}
+.explorer-label{margin:0 20px 12px;font-size:11px;letter-spacing:1px;color:var(--muted)}
+.explorer-root{margin:0;padding:0 20px;height:32px;display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-strong);font-weight:700}
+.explorer nav a{height:56px;padding:0 20px 0 40px;display:flex;align-items:center;gap:12px;font-size:17px;text-decoration:none;color:var(--text);border-left:2px solid transparent}
+.explorer nav a .ico{font-size:12px;width:24px;display:flex}
+.explorer nav a[aria-current="true"]{background:var(--select);border-left-color:var(--accent);color:var(--text-strong)}
+.explorer-social{padding:0 20px 24px;display:flex;gap:12px}
+.explorer-social a{flex:1;min-height:48px;border:1px solid var(--border-2);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;text-decoration:none;color:var(--text-strong)}
+
+/* ---------- seções ---------- */
+section{border-top:1px solid var(--border)}
+section.alt{background:var(--bg-2)}
+.hero{border-top:0}
+.hero .wrap{padding-top:96px;padding-bottom:112px;display:flex;gap:32px}
+.gutter{font-family:var(--mono);font-size:15px;color:var(--gutter);display:flex;flex-direction:column;text-align:right;min-width:24px;padding-top:6px;user-select:none}
+.gutter span:nth-child(1){height:44px}.gutter span:nth-child(2){height:116px;padding-top:28px}.gutter span:nth-child(3){height:118px}
+.hero-body{display:flex;flex-direction:column;gap:24px;max-width:780px}
+.comment{margin:0;font-family:var(--mono);color:var(--comment)}
+.hero .comment{font-size:17px}
+h1{margin:0;font-family:var(--mono);font-size:clamp(46px,8vw,88px);line-height:1.02;font-weight:700;color:var(--text-strong);letter-spacing:-.025em;text-wrap:balance}
+.lead{margin:0;font-size:19px;line-height:1.6;max-width:620px;text-wrap:pretty}
+.code-line{margin:0;font-family:var(--mono);font-size:15px;display:flex;align-items:center;flex-wrap:wrap}
+.kw{color:var(--keyword)}.var{color:var(--variable)}.str{color:var(--string)}.brace{color:var(--brace)}
+.cursor{display:inline-block;width:9px;height:18px;background:var(--accent);margin-left:4px;animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.actions{display:flex;flex-wrap:wrap;gap:12px;padding-top:8px}
+.btn{font-family:var(--mono);font-size:15px;font-weight:500;padding:0 22px;min-height:48px;display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:4px;text-decoration:none;color:var(--text-strong);border:1px solid var(--border-2)}
+.btn:hover{background:#2A2D2E;color:var(--text-strong)}
+.btn.primary{background:var(--accent);border-color:var(--accent)}
+.btn.primary:hover{background:var(--accent-hover)}
+.btn[aria-disabled="true"]{opacity:.75;cursor:not-allowed}
+
+.split{padding-top:88px;padding-bottom:88px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:48px}
+.sec-head{display:flex;flex-direction:column;gap:12px}
+.sec-head .comment{font-size:14px}
+h2{margin:0;font-family:var(--mono);font-size:36px;line-height:1.2;color:var(--text-strong);font-weight:700}
+.prose{display:flex;flex-direction:column;gap:20px;font-size:17px;line-height:1.65;text-wrap:pretty}
+.prose p{margin:0}
+.list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;font-size:16px;line-height:1.5}
+.list li{display:flex;gap:10px}
+.list li::before{content:"→";color:var(--type);font-family:var(--mono)}
+pre.code{margin:0;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:28px;font-family:var(--mono);font-size:15px;line-height:1.8;overflow-x:auto;color:var(--text)}
+section.alt pre.code{background:var(--bg)}
+#contato pre.code{background:var(--bg-2)}
+pre.code a{color:var(--string);text-decoration:none}
+pre.code a:hover{text-decoration:underline;color:var(--string)}
+
+.stack-portfolio{padding-top:88px;padding-bottom:88px;display:flex;flex-direction:column;gap:40px}
+.row-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}
+.badge{font-family:var(--mono);font-size:13px;color:var(--func);border:1px solid #4D4A2F;padding:6px 12px;border-radius:999px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.card{border:1px solid var(--border);background:var(--bg-2);border-radius:6px;padding:28px;display:flex;flex-direction:column;gap:14px;min-height:200px;transition:border-color .15s}
+.card:hover{border-color:var(--accent)}
+.card .path{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.card h3{margin:0;font-size:21px;color:var(--text-strong);font-weight:600}
+.card p{margin:0;font-size:15px;line-height:1.6}
+.card .tech{margin-top:auto;font-family:var(--mono);font-size:13px;color:var(--type)}
+
+.contact-list{display:none;flex-direction:column;gap:10px}
+.contact-list a{background:var(--bg-2);border:1px solid var(--border);border-radius:6px;min-height:60px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;text-decoration:none;font-family:var(--mono);font-size:13px}
+.contact-list a span{display:flex;flex-direction:column;gap:2px}
+.contact-list .k{color:var(--variable)}.contact-list .v{color:var(--string)}
+
+/* ---------- rodapé (status bar) ---------- */
+.status{background:var(--accent);color:#fff;font-family:var(--mono);font-size:13px}
+.status .wrap{padding-top:8px;padding-bottom:8px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px}
+.status span{display:flex;align-items:center;gap:6px}
+
+/* ---------- mobile ---------- */
+@media (max-width:720px){
+  html{scroll-padding-top:100px}
+  .wrap{padding:0 20px}
+  .nav{display:none}
+  .menu-btn{display:flex}
+  .tabs .wrap{padding-left:12px;font-size:12px}
+  .tab{padding:10px 14px;gap:6px}
+  .gutter{display:none}
+  .hero .wrap{padding-top:56px;padding-bottom:64px}
+  .hero-body{gap:20px}
+  .hero .comment{font-size:14px}
+  h1 .br{display:block}
+  .lead{font-size:17px;line-height:1.65}
+  .code-line{font-size:14px}
+  .cursor{width:8px;height:16px}
+  .actions{flex-direction:column}
+  .btn{width:100%;min-height:52px}
+  .split,.stack-portfolio{padding-top:56px;padding-bottom:56px;gap:24px}
+  .sec-head{gap:8px}
+  .sec-head .comment{font-size:13px}
+  h2{font-size:30px}
+  .prose{font-size:16px}
+  .list{font-size:15px}
+  pre.code{padding:20px;font-size:13px;line-height:1.75}
+  .row-head{flex-direction:column;align-items:flex-start;gap:8px}
+  .badge{font-size:12px;padding:5px 10px}
+  .cards{gap:16px}
+  .card{padding:22px;gap:12px;min-height:0}
+  .card h3{font-size:19px}
+  .card .path,.card .tech{font-size:12px}
+  #contato pre.code{display:none}
+  .contact-list{display:flex}
+  .status{font-size:12px}
+  .status .site{display:none}
+}
+
+/* ---------- seletor de idioma ---------- */
+.header-right{display:flex;align-items:center;gap:20px}
+.lang{display:flex;border:1px solid var(--border-2);border-radius:4px;overflow:hidden;font-family:var(--mono);font-size:12px}
+.lang button{min-width:44px;height:36px;padding:0 10px;background:transparent;color:var(--muted);border:0;cursor:pointer;font:inherit;font-weight:700;letter-spacing:.5px}
+.lang button + button{border-left:1px solid var(--border-2)}
+.lang button:hover{color:var(--text-strong);background:#2A2D2E}
+.lang button[aria-pressed="true"]{background:var(--accent);color:#fff}
+@media (max-width:720px){.header-right{gap:4px}}
+</style>
+</head>
+<body>
+<a class="skip" href="#conteudo" data-i18n="skip">Pular para o conteúdo</a>
+
+<div class="top">
+  <header class="header">
+    <div class="wrap">
+      <a class="logo" href="#inicio">glaydsonp<span>.com</span></a>
+      <div class="header-right">
+        <nav class="nav" aria-label="Seções" data-i18n-aria="navLabel">
+          <a href="#sobre" data-i18n="nav.sobre">sobre</a>
+          <a href="#stack">stack</a>
+          <a href="#portfolio" data-i18n="nav.portfolio">portfólio</a>
+          <a href="#curriculo" data-i18n="nav.curriculo">currículo</a>
+          <a href="#contato" data-i18n="nav.contato">contato</a>
+        </nav>
+        <div class="lang" role="group" aria-label="Idioma" data-i18n-aria="langLabel">
+          <button type="button" data-lang="pt" aria-pressed="true" lang="pt-BR" title="Português">PT</button>
+          <button type="button" data-lang="en" aria-pressed="false" lang="en" title="English">EN</button>
+        </div>
+        <button class="menu-btn" type="button" aria-label="Abrir menu" data-i18n-aria="menuOpen" aria-expanded="false" aria-controls="explorer">
+          <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <div class="tabs" aria-hidden="true">
+    <div class="wrap">
+      <a class="tab active" href="#inicio" tabindex="-1"><span class="ico ts">TS</span>home.ts</a>
+      <a class="tab" href="#stack" tabindex="-1"><span class="ico json">{ }</span>stack.json</a>
+      <a class="tab" href="#curriculo" tabindex="-1"><span class="ico md">M↓</span><span data-i18n="file.curriculo">curriculo.md</span></a>
+    </div>
+  </div>
+</div>
+
+<div class="explorer" id="explorer" role="dialog" aria-modal="true" aria-label="Menu" hidden>
+  <div class="explorer-head">
+    <span class="logo">glaydsonp<span>.com</span></span>
+    <button class="menu-btn" type="button" data-close aria-label="Fechar menu" data-i18n-aria="menuClose" style="display:flex">
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <nav aria-label="Seções" data-i18n-aria="navLabel">
+    <p class="explorer-label">EXPLORER</p>
+    <p class="explorer-root"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>GLAYDSONP.COM</p>
+    <a href="#inicio"><span class="ico ts">TS</span>home.ts</a>
+    <a href="#sobre"><span class="ico md">M↓</span><span data-i18n="file.sobre">sobre.md</span></a>
+    <a href="#stack"><span class="ico json">{ }</span>stack.json</a>
+    <a href="#portfolio"><span class="ico"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DCB67A" stroke-width="2" stroke-linejoin="round"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5H9l2 2h8.5A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/></svg></span>portfolio/</a>
+    <a href="#curriculo"><span class="ico md">M↓</span><span data-i18n="file.curriculo">curriculo.md</span></a>
+    <a href="#contato"><span class="ico json">{ }</span><span data-i18n="file.contato">contato.json</span></a>
+  </nav>
+  <div class="explorer-social">
+    <a href="https://github.com/glaydsonp" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.linkedin.com/in/glaydson-honorato/" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+  <footer class="status"><div class="wrap"><span>main</span><span>glaydsonp.com</span></div></footer>
+</div>
+
+<main id="conteudo">
+
+  <section class="hero" id="inicio">
+    <div class="wrap">
+      <div class="gutter" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span></div>
+      <div class="hero-body">
+        <p class="comment">// Tech Lead &amp; Full-Stack Developer</p>
+        <h1>Glaydson <span class="br">Prado</span></h1>
+        <p class="lead" data-i18n="hero.lead">Lidero times de engenharia e produto, do app mobile ao backend e à infraestrutura em nuvem — planejando a execução das features e mantendo de pé o que já está em produção.</p>
+        <p class="code-line"><span class="kw">export default</span>&nbsp;<span class="var">glaydson</span>;<span class="cursor" aria-hidden="true"></span></p>
+        <div class="actions">
+          <a class="btn primary" href="#portfolio" data-i18n="hero.portfolio">ver portfólio</a>
+          <a class="btn" href="#curriculo" data-i18n="hero.curriculo">currículo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sobre">
+    <div class="wrap split">
+      <div class="sec-head">
+        <p class="comment" data-i18n="sobre.comment">// sobre.md</p>
+        <h2 data-i18n="sobre.title">Sobre</h2>
+      </div>
+      <div class="prose">
+        <p data-i18n="sobre.p1">Comecei no frontend e hoje atuo como Tech Lead full-stack, liderando cerca de 15 pessoas em duas squads: uma de evolução de produto e outra de sustentação (AMS).</p>
+        <p data-i18n="sobre.p2">No dia a dia, cuido de integração de backend, infraestrutura mobile, gestão de releases e coordenação dos times, num ambiente com dezenas de integrações externas.</p>
+        <ul class="list">
+          <li data-i18n="sobre.li1">Pós-graduação em Arquitetura de Software, Ciência de Dados e Cibersegurança (PUC-Campinas)</li>
+          <li data-i18n="sobre.li2">Campinas, SP</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt" id="stack">
+    <div class="wrap split">
+      <div class="sec-head">
+        <p class="comment">// stack.json</p>
+        <h2>Stack</h2>
+      </div>
+      <div>
+<pre class="code"><span class="brace">{</span>
+  <span class="var">"mobile"</span>: [<span class="str">"React Native"</span>],
+  <span class="var">"backend"</span>: [<span class="str">".NET"</span>, <span class="str">"PHP"</span>],
+  <span class="var" data-i18n="stack.dados">"dados"</span>: [
+    <span class="str">"PostgreSQL"</span>, <span class="str">"MySQL"</span>,
+    <span class="str">"SQL Server"</span>, <span class="str">"Redis"</span>
+  ],
+  <span class="var" data-i18n="stack.mensageria">"mensageria"</span>: [
+    <span class="str">"RabbitMQ"</span>,
+    <span class="str">"Azure Service Bus"</span>,
+    <span class="str">"AWS SQS"</span>
+  ],
+  <span class="var">"infra"</span>: [
+    <span class="str">"Kubernetes"</span>, <span class="str">"AWS"</span>,
+    <span class="str">"Firebase"</span>
+  ]
+<span class="brace">}</span></pre>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <div class="wrap stack-portfolio">
+      <div class="row-head">
+        <div class="sec-head">
+          <p class="comment">// portfolio/</p>
+          <h2 data-i18n="portfolio.title">Portfólio</h2>
+        </div>
+        <span class="badge" data-i18n="portfolio.badge">// TODO: em breve</span>
+      </div>
+      <div class="cards">
+        <!-- Duplique um <article> por projeto. Textos de cada projeto: adicione chaves novas (ex.: "p1.name") no objeto I18N, no fim do arquivo. -->
+        <article class="card">
+          <span class="path">projeto-01/</span>
+          <h3 data-i18n="card.name">[NOME DO PROJETO]</h3>
+          <p data-i18n="card.desc">[Descrição curta: problema, o que você fez e resultado.]</p>
+          <span class="tech">[stack]</span>
+        </article>
+        <article class="card">
+          <span class="path">projeto-02/</span>
+          <h3 data-i18n="card.name">[NOME DO PROJETO]</h3>
+          <p data-i18n="card.desc">[Descrição curta: problema, o que você fez e resultado.]</p>
+          <span class="tech">[stack]</span>
+        </article>
+        <article class="card">
+          <span class="path">projeto-03/</span>
+          <h3 data-i18n="card.name">[NOME DO PROJETO]</h3>
+          <p data-i18n="card.desc">[Descrição curta: problema, o que você fez e resultado.]</p>
+          <span class="tech">[stack]</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt" id="curriculo">
+    <div class="wrap split" style="align-items:center">
+      <div class="sec-head">
+        <p class="comment" data-i18n="curriculo.comment">// curriculo.md</p>
+        <h2 data-i18n="curriculo.title">Currículo</h2>
+        <p style="margin:0;font-size:17px;line-height:1.65" data-i18n="curriculo.text">Experiência, formação e certificações em um só arquivo.</p>
+      </div>
+      <div class="actions">
+        <!-- Quando tiver o PDF: href="/curriculo-glaydson-prado.pdf" download e remova aria-disabled. Para um PDF por idioma, troque o href no applyLang() -->
+        <a class="btn primary" href="#curriculo" aria-disabled="true">
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+          <span data-i18n="curriculo.pdf">baixar PDF (em breve)</span>
+        </a>
+        <a class="btn" href="https://www.linkedin.com/in/glaydson-honorato/" target="_blank" rel="noopener" data-i18n="curriculo.linkedin">ver no LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato">
+    <div class="wrap split">
+      <div class="sec-head">
+        <p class="comment" data-i18n="contato.comment">// contato.json</p>
+        <h2 data-i18n="contato.title">Vamos conversar</h2>
+      </div>
+      <div>
+<pre class="code"><span class="brace">{</span>
+  <span class="var">"email"</span>: <a href="mailto:glaydson.prado@gmail.com">"glaydson.prado@gmail.com"</a>,
+  <span class="var">"github"</span>: <a href="https://github.com/glaydsonp" target="_blank" rel="noopener">"/glaydsonp"</a>,
+  <span class="var">"linkedin"</span>: <a href="https://www.linkedin.com/in/glaydson-honorato/" target="_blank" rel="noopener">"/in/glaydson-honorato"</a>
+<span class="brace">}</span></pre>
+        <div class="contact-list">
+          <a href="mailto:glaydson.prado@gmail.com"><span><span class="k">"email"</span><span class="v">glaydson.prado@gmail.com</span></span><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9DA5B4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></a>
+          <a href="https://github.com/glaydsonp" target="_blank" rel="noopener"><span><span class="k">"github"</span><span class="v">/glaydsonp</span></span><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9DA5B4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></a>
+          <a href="https://www.linkedin.com/in/glaydson-honorato/" target="_blank" rel="noopener"><span><span class="k">"linkedin"</span><span class="v">/in/glaydson-honorato</span></span><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9DA5B4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="status">
+  <div class="wrap">
+    <span><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="8" r="2.5"/><path d="M6 8.5v7"/><path d="M18 10.5c0 4-6 3-11 5.5"/></svg>main</span>
+    <span>© <span id="ano">2026</span> Glaydson Prado</span>
+    <span class="site"><span data-i18n="status.lang">pt-BR</span>&nbsp;&nbsp;glaydsonp.com</span>
+  </div>
+</footer>
+
+<script>
+// ===== Textos em PT e EN — edite aqui =====
+var I18N = {
+  pt: {
+    'meta.title': 'Glaydson Prado — Tech Lead & Full-Stack Developer',
+    'meta.desc': 'Glaydson Prado — Tech Lead & Full-Stack Developer. Mobile, backend e infraestrutura em nuvem.',
+    'skip': 'Pular para o conteúdo',
+    'navLabel': 'Seções', 'langLabel': 'Idioma',
+    'menuOpen': 'Abrir menu', 'menuClose': 'Fechar menu',
+    'nav.sobre': 'sobre', 'nav.portfolio': 'portfólio', 'nav.curriculo': 'currículo', 'nav.contato': 'contato',
+    'file.sobre': 'sobre.md', 'file.curriculo': 'curriculo.md', 'file.contato': 'contato.json',
+    'hero.lead': 'Lidero times de engenharia e produto, do app mobile ao backend e à infraestrutura em nuvem — planejando a execução das features e mantendo de pé o que já está em produção.',
+    'hero.portfolio': 'ver portfólio', 'hero.curriculo': 'currículo',
+    'sobre.comment': '// sobre.md', 'sobre.title': 'Sobre',
+    'sobre.p1': 'Comecei no frontend e hoje atuo como Tech Lead full-stack, liderando cerca de 15 pessoas em duas squads: uma de evolução de produto e outra de sustentação (AMS).',
+    'sobre.p2': 'No dia a dia, cuido de integração de backend, infraestrutura mobile, gestão de releases e coordenação dos times, num ambiente com dezenas de integrações externas.',
+    'sobre.li1': 'Pós-graduação em Arquitetura de Software, Ciência de Dados e Cibersegurança (PUC-Campinas)',
+    'sobre.li2': 'Campinas, SP',
+    'stack.dados': '"dados"', 'stack.mensageria': '"mensageria"',
+    'portfolio.title': 'Portfólio', 'portfolio.badge': '// TODO: em breve',
+    'card.name': '[NOME DO PROJETO]', 'card.desc': '[Descrição curta: problema, o que você fez e resultado.]',
+    'curriculo.comment': '// curriculo.md', 'curriculo.title': 'Currículo',
+    'curriculo.text': 'Experiência, formação e certificações em um só arquivo.',
+    'curriculo.pdf': 'baixar PDF (em breve)', 'curriculo.linkedin': 'ver no LinkedIn',
+    'contato.comment': '// contato.json', 'contato.title': 'Vamos conversar',
+    'status.lang': 'pt-BR'
+  },
+  en: {
+    'meta.title': 'Glaydson Prado — Tech Lead & Full-Stack Developer',
+    'meta.desc': 'Glaydson Prado — Tech Lead & Full-Stack Developer. Mobile, backend and cloud infrastructure.',
+    'skip': 'Skip to content',
+    'navLabel': 'Sections', 'langLabel': 'Language',
+    'menuOpen': 'Open menu', 'menuClose': 'Close menu',
+    'nav.sobre': 'about', 'nav.portfolio': 'portfolio', 'nav.curriculo': 'resume', 'nav.contato': 'contact',
+    'file.sobre': 'about.md', 'file.curriculo': 'resume.md', 'file.contato': 'contact.json',
+    'hero.lead': 'I lead engineering and product teams, from the mobile app to the backend and cloud infrastructure — planning feature delivery and keeping what’s in production up and running.',
+    'hero.portfolio': 'view portfolio', 'hero.curriculo': 'resume',
+    'sobre.comment': '// about.md', 'sobre.title': 'About',
+    'sobre.p1': 'I started out in frontend and today I work as a full-stack Tech Lead, leading about 15 people across two squads: one focused on product evolution and one on sustaining engineering (AMS).',
+    'sobre.p2': 'Day to day, I handle backend integration, mobile infrastructure, release management and team coordination, in an environment with dozens of external integrations.',
+    'sobre.li1': 'Postgraduate specialization in Software Architecture, Data Science and Cybersecurity (PUC-Campinas)',
+    'sobre.li2': 'Campinas, Brazil',
+    'stack.dados': '"data"', 'stack.mensageria': '"messaging"',
+    'portfolio.title': 'Portfolio', 'portfolio.badge': '// TODO: coming soon',
+    'card.name': '[PROJECT NAME]', 'card.desc': '[Short description: the problem, what you did and the outcome.]',
+    'curriculo.comment': '// resume.md', 'curriculo.title': 'Resume',
+    'curriculo.text': 'Experience, education and certifications in a single file.',
+    'curriculo.pdf': 'download PDF (coming soon)', 'curriculo.linkedin': 'view on LinkedIn',
+    'contato.comment': '// contact.json', 'contato.title': 'Let’s talk',
+    'status.lang': 'en-US'
+  }
+};
+
+(function () {
+  // ---------- idioma ----------
+  var KEY = 'gp-lang';
+  function pick() {
+    var q = new URLSearchParams(location.search).get('lang');
+    if (q === 'pt' || q === 'en') return q;
+    try { var saved = localStorage.getItem(KEY); if (saved === 'pt' || saved === 'en') return saved; } catch (e) {}
+    return (navigator.language || 'pt').toLowerCase().indexOf('pt') === 0 ? 'pt' : 'en';
+  }
+  function applyLang(lang, persist) {
+    var t = I18N[lang];
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+    document.title = t['meta.title'];
+    var md = document.querySelector('meta[name="description"]'); if (md) md.setAttribute('content', t['meta.desc']);
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var v = t[el.getAttribute('data-i18n')]; if (v != null) el.textContent = v;
+    });
+    document.querySelectorAll('[data-i18n-aria]').forEach(function (el) {
+      var v = t[el.getAttribute('data-i18n-aria')]; if (v != null) el.setAttribute('aria-label', v);
+    });
+    document.querySelectorAll('.lang button').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-lang') === lang ? 'true' : 'false');
+    });
+    if (persist) {
+      try { localStorage.setItem(KEY, lang); } catch (e) {}
+      var url = new URL(location.href); url.searchParams.set('lang', lang);
+      history.replaceState(null, '', url);
+    }
+  }
+  document.querySelectorAll('.lang button').forEach(function (b) {
+    b.addEventListener('click', function () { applyLang(b.getAttribute('data-lang'), true); });
+  });
+  applyLang(pick(), false);
+
+  // ---------- menu mobile ----------
+  var openBtn = document.querySelector('.header .menu-btn');
+  var panel = document.getElementById('explorer');
+  var closeBtn = panel.querySelector('[data-close]');
+  function openMenu() { panel.hidden = false; openBtn.setAttribute('aria-expanded', 'true'); document.body.style.overflow = 'hidden'; closeBtn.focus(); }
+  function closeMenu() { panel.hidden = true; openBtn.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; openBtn.focus(); }
+  openBtn.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  panel.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+  panel.querySelectorAll('nav a').forEach(function (a) { a.addEventListener('click', closeMenu); });
+
+  // ---------- seção ativa ----------
+  var ids = ['inicio', 'sobre', 'stack', 'portfolio', 'curriculo', 'contato'];
+  var links = document.querySelectorAll('.nav a, .explorer nav a');
+  var tabs = document.querySelectorAll('.tab');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var id = en.target.id;
+        links.forEach(function (l) { l.setAttribute('aria-current', l.getAttribute('href') === '#' + id ? 'true' : 'false'); });
+        var tabFor = id === 'stack' ? '#stack' : id === 'curriculo' ? '#curriculo' : '#inicio';
+        tabs.forEach(function (t) { t.classList.toggle('active', t.getAttribute('href') === tabFor); });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    ids.forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+  }
+
+  document.querySelectorAll('[aria-disabled="true"]').forEach(function (b) {
+    b.addEventListener('click', function (e) { e.preventDefault(); });
+  });
+  document.getElementById('ano').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
