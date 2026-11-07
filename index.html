@@ -518,6 +518,43 @@ var I18N = {
     return (h && h.textContent.trim()) || s.id || s.tagName.toLowerCase();
   }
 
+  function slugify(str) {
+    return String(str || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
+
+  // Event name after the click target: 'click-' + slug (max 40 chars)
+  function clickName(el, href, external) {
+    var slug = '';
+    var label = el.getAttribute('aria-label') || el.textContent;
+    if (el.getAttribute('data-lang')) {
+      slug = 'lang-' + slugify(el.getAttribute('data-lang'));
+    } else if (el.hasAttribute('data-close')) {
+      slug = 'menu-close';
+    } else if (el.getAttribute('aria-controls') === 'explorer') {
+      slug = 'menu-open';
+    } else if (/^mailto:/i.test(href)) {
+      slug = 'email';
+    } else if (/^tel:/i.test(href)) {
+      slug = 'phone';
+    } else if (external) {
+      try {
+        var u = new URL(href, location.href);
+        var host = u.hostname.replace(/^www\./, '').split('.');
+        if (host.length > 1) host.pop();
+        var path = u.pathname.split('/').filter(Boolean);
+        // LinkedIn links always map to 'linkedin', whatever the profile path
+        slug = host.join('-') === 'linkedin' ? 'linkedin'
+          : slugify(host.join('-') + (path.length > 1 ? '-' + path[path.length - 1] : ''));
+      } catch (err) {}
+    } else if (href.charAt(0) === '#' && href.length > 1 && el.getAttribute('aria-disabled') !== 'true') {
+      slug = 'anchor-' + slugify(href.slice(1));
+    } else {
+      slug = slugify(label);
+    }
+    return ('click-' + (slug || 'unknown')).slice(0, 40).replace(/-+$/, '');
+  }
+
   document.addEventListener('click', function (e) {
     try {
       var el = e.target.closest && e.target.closest('a, button');
@@ -527,7 +564,7 @@ var I18N = {
       if (el.tagName === 'A' && href) {
         try { external = new URL(el.href, location.href).origin !== location.origin; } catch (err) {}
       }
-      track('click', {
+      track(clickName(el, href, external), {
         text: (el.textContent || el.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' ').slice(0, 100),
         href: href,
         external: external,
