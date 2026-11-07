@@ -7,7 +7,7 @@ Live site: <https://glaydsonp.com>
 ## Stack
 
 - A single static `index.html` (HTML, CSS and vanilla JavaScript inline, no build step, no frameworks).
-- Served by nginx, deployed through Coolify.
+- Served by nginx.
 - Self-hosted Umami for analytics (see [docs/analytics.md](docs/analytics.md)).
 
 ## Project structure
@@ -35,7 +35,7 @@ Note: the analytics script only reports for the `glaydsonp.com` domain (`data-do
 
 ## Deployment
 
-Pushing or merging to `main` triggers a webhook, and Coolify rebuilds and redeploys the site automatically at <https://glaydsonp.com>. Work on a branch and open a pull request; merging it is the deploy.
+Pushing or merging to `main` triggers an automatic rebuild and redeploy of the site at <https://glaydsonp.com>. Work on a branch and open a pull request; merging it is the deploy.
 
 ## Documentation
 

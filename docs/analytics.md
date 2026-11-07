@@ -1,6 +1,6 @@
 # Analytics
 
-The site uses [Umami](https://umami.is), self-hosted and deployed through Coolify.
+The site uses [Umami](https://umami.is), self-hosted.
 
 - Dashboard and script host: <https://umami.glaydsonp.com>
 - Website ID: `c2598392-8190-4829-aa9d-4aaaee1693b0` (public; it is visible in the page source and is not a secret)
