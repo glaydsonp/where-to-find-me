@@ -40,7 +40,7 @@ a{color:var(--variable)}a:hover{color:var(--text-strong)}
 .skip{position:absolute;left:-9999px;top:8px;background:var(--accent);color:#fff;padding:8px 12px;z-index:100}
 .skip:focus{left:8px}
 
-/* ---------- topo ---------- */
+/* ---------- top bar ---------- */
 .top{position:sticky;top:0;z-index:20;background:var(--bg-2)}
 .header{border-bottom:1px solid var(--border)}
 .header .wrap{min-height:56px;display:flex;align-items:center;justify-content:space-between;gap:12px 32px}
@@ -60,7 +60,7 @@ a{color:var(--variable)}a:hover{color:var(--text-strong)}
 .ico{font-weight:700}
 .ico.ts{color:var(--type)}.ico.json{color:var(--func)}.ico.md{color:var(--keyword)}
 
-/* ---------- menu mobile (explorer) ---------- */
+/* ---------- mobile menu (explorer) ---------- */
 .explorer{position:fixed;inset:0;z-index:50;background:var(--bg-2);display:flex;flex-direction:column;font-family:var(--mono)}
 .explorer[hidden]{display:none}
 .explorer-head{height:56px;border-bottom:1px solid var(--border);padding:0 8px 0 20px;display:flex;align-items:center;justify-content:space-between}
@@ -73,7 +73,7 @@ a{color:var(--variable)}a:hover{color:var(--text-strong)}
 .explorer-social{padding:0 20px 24px;display:flex;gap:12px}
 .explorer-social a{flex:1;min-height:48px;border:1px solid var(--border-2);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;text-decoration:none;color:var(--text-strong)}
 
-/* ---------- seções ---------- */
+/* ---------- sections ---------- */
 section{border-top:1px solid var(--border)}
 section.alt{background:var(--bg-2)}
 .hero{border-top:0}
@@ -127,7 +127,7 @@ pre.code a:hover{text-decoration:underline;color:var(--string)}
 .contact-list a span{display:flex;flex-direction:column;gap:2px}
 .contact-list .k{color:var(--variable)}.contact-list .v{color:var(--string)}
 
-/* ---------- rodapé (status bar) ---------- */
+/* ---------- footer (status bar) ---------- */
 .status{background:var(--accent);color:#fff;font-family:var(--mono);font-size:13px}
 .status .wrap{padding-top:8px;padding-bottom:8px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px}
 .status span{display:flex;align-items:center;gap:6px}
@@ -169,7 +169,7 @@ pre.code a:hover{text-decoration:underline;color:var(--string)}
   .status .site{display:none}
 }
 
-/* ---------- seletor de idioma ---------- */
+/* ---------- language switcher ---------- */
 .header-right{display:flex;align-items:center;gap:20px}
 .lang{display:flex;border:1px solid var(--border-2);border-radius:4px;overflow:hidden;font-family:var(--mono);font-size:12px}
 .lang button{min-width:44px;height:36px;padding:0 10px;background:transparent;color:var(--muted);border:0;cursor:pointer;font:inherit;font-weight:700;letter-spacing:.5px}
@@ -311,7 +311,7 @@ pre.code a:hover{text-decoration:underline;color:var(--string)}
         <span class="badge" data-i18n="portfolio.badge">// TODO: em breve</span>
       </div>
       <div class="cards">
-        <!-- Duplique um <article> por projeto. Textos de cada projeto: adicione chaves novas (ex.: "p1.name") no objeto I18N, no fim do arquivo. -->
+        <!-- Duplicate one <article> per project. Per-project texts: add new keys (e.g. "p1.name") to the I18N object at the end of the file. -->
         <article class="card">
           <span class="path">projeto-01/</span>
           <h3 data-i18n="card.name">[NOME DO PROJETO]</h3>
@@ -342,7 +342,7 @@ pre.code a:hover{text-decoration:underline;color:var(--string)}
         <p style="margin:0;font-size:17px;line-height:1.65" data-i18n="curriculo.text">Experiência, formação e certificações em um só arquivo.</p>
       </div>
       <div class="actions">
-        <!-- Quando tiver o PDF: href="/curriculo-glaydson-prado.pdf" download e remova aria-disabled. Para um PDF por idioma, troque o href no applyLang() -->
+        <!-- When the PDF is ready: href="/curriculo-glaydson-prado.pdf" download and remove aria-disabled. For one PDF per language, switch the href in applyLang() -->
         <a class="btn primary" href="#curriculo" aria-disabled="true">
           <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
           <span data-i18n="curriculo.pdf">baixar PDF (em breve)</span>
@@ -384,7 +384,7 @@ pre.code a:hover{text-decoration:underline;color:var(--string)}
 </footer>
 
 <script>
-// ===== Textos em PT e EN — edite aqui =====
+// ===== PT and EN texts — edit here =====
 var I18N = {
   pt: {
     'meta.title': 'Glaydson Prado — Tech Lead & Full-Stack Developer',
@@ -437,7 +437,7 @@ var I18N = {
 };
 
 (function () {
-  // ---------- idioma ----------
+  // ---------- language ----------
   var KEY = 'gp-lang';
   function pick() {
     var q = new URLSearchParams(location.search).get('lang');
@@ -470,7 +470,7 @@ var I18N = {
   });
   applyLang(pick(), false);
 
-  // ---------- menu mobile ----------
+  // ---------- mobile menu ----------
   var openBtn = document.querySelector('.header .menu-btn');
   var panel = document.getElementById('explorer');
   var closeBtn = panel.querySelector('[data-close]');
@@ -481,7 +481,7 @@ var I18N = {
   panel.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
   panel.querySelectorAll('nav a').forEach(function (a) { a.addEventListener('click', closeMenu); });
 
-  // ---------- seção ativa ----------
+  // ---------- active section ----------
   var ids = ['inicio', 'sobre', 'stack', 'portfolio', 'curriculo', 'contato'];
   var links = document.querySelectorAll('.nav a, .explorer nav a');
   var tabs = document.querySelectorAll('.tab');
@@ -505,13 +505,13 @@ var I18N = {
 })();
 </script>
 <script>
-/* analytics (Umami): eventos por delegação; silencioso se o script for bloqueado */
+/* analytics (Umami): delegated events; silent if the script is blocked */
 (function () {
   function track(name, data) {
     try { if (window.umami && typeof window.umami.track === 'function') window.umami.track(name, data); } catch (e) {}
   }
 
-  function secaoDe(el) {
+  function sectionOf(el) {
     var s = el.closest('section[id], header, footer');
     if (!s) return '';
     var h = s.querySelector('h1, h2, h3');
@@ -523,42 +523,42 @@ var I18N = {
       var el = e.target.closest && e.target.closest('a, button');
       if (!el) return;
       var href = el.getAttribute('href') || '';
-      var externo = false;
+      var external = false;
       if (el.tagName === 'A' && href) {
-        try { externo = new URL(el.href, location.href).origin !== location.origin; } catch (err) {}
+        try { external = new URL(el.href, location.href).origin !== location.origin; } catch (err) {}
       }
       track('click', {
-        texto: (el.textContent || el.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' ').slice(0, 100),
+        text: (el.textContent || el.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' ').slice(0, 100),
         href: href,
-        externo: externo,
-        secao: secaoDe(el)
+        external: external,
+        section: sectionOf(el)
       });
       var m = /^(mailto|tel):(.*)$/i.exec(href);
-      if (m) track('contact-click', { tipo: m[1].toLowerCase(), valor: decodeURIComponent(m[2]).split('?')[0] });
+      if (m) track('contact-click', { type: m[1].toLowerCase(), value: decodeURIComponent(m[2]).split('?')[0] });
     } catch (err) {}
   }, true);
 
-  var marcos = [25, 50, 75, 100], feitos = {};
+  var milestones = [25, 50, 75, 100], done = {};
   function onScroll() {
     try {
       var d = document.documentElement;
       var total = d.scrollHeight - window.innerHeight;
       var pct = total > 0 ? (window.scrollY / total) * 100 : 100;
-      marcos.forEach(function (m) {
-        if (pct >= m && !feitos[m]) { feitos[m] = true; track('scroll-depth', { percent: m }); }
+      milestones.forEach(function (m) {
+        if (pct >= m && !done[m]) { done[m] = true; track('scroll-depth', { percent: m }); }
       });
     } catch (err) {}
   }
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  var inicio = Date.now(), enviado = false;
-  function saida() {
-    if (enviado) return;
-    enviado = true;
-    track('time-on-page', { segundos: Math.round((Date.now() - inicio) / 1000) });
+  var startedAt = Date.now(), sent = false;
+  function onExit() {
+    if (sent) return;
+    sent = true;
+    track('time-on-page', { seconds: Math.round((Date.now() - startedAt) / 1000) });
   }
-  window.addEventListener('pagehide', saida);
-  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') saida(); });
+  window.addEventListener('pagehide', onExit);
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') onExit(); });
 })();
 </script>
 </body>
